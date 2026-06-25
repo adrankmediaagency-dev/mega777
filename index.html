@@ -248,11 +248,22 @@
       50% { box-shadow: 0 4px 35px rgba(204,34,34,0.9); }
     }
 
+    /* ===== MOBILE FIX ===== */
     @media (max-width: 768px) {
-      .hero-bg { width: 100%; opacity: 0.2; }
-      .hero-overlay { background: rgba(10,10,10,0.85); }
-      .hero-content { max-width: 100%; padding: 2rem 1.5rem; }
-      .brand { font-size: 40px; }
+      .hero-bg {
+        width: 55%;           /* keep image on the right side */
+        opacity: 0.9;         /* was 0.2 — restored full visibility */
+        object-position: top center;
+      }
+      .hero-overlay {
+        /* was rgba(10,10,10,0.85) which buried the image */
+        background: linear-gradient(to right, #0a0a0a 38%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.0) 100%);
+      }
+      .hero-content {
+        max-width: 60%;       /* was 100% — text left, image right */
+        padding: 2rem 1.2rem;
+      }
+      .brand { font-size: 34px; }
       .rate-card.highlight { grid-column: span 1; }
       .contact-strip { gap: 16px; }
       .fixed-dl { padding: 12px 24px; font-size: 14px; }
@@ -261,8 +272,8 @@
 </head>
 <body>
 
-<!-- STICKY TOP BAR — logo removed -->
-<a href="/mega777.apk" class="sticky-bar">
+<!-- STICKY TOP BAR -->
+<a href="mega-v6.apk" class="sticky-bar">
   <i class="fas fa-download"></i>
   <span>Download MEGA777 App</span>
   <span class="badge">FREE</span>
@@ -270,7 +281,7 @@
 
 <div class="page-content">
 
-  <!-- HERO — logo-row removed, girl bg image kept -->
+  <!-- HERO -->
   <div class="hero">
     <img class="hero-bg" src="pic.png" alt="">
     <div class="hero-overlay"></div>
@@ -383,7 +394,7 @@
     </div>
   </section>
 
-  <!-- FOOTER — logo img removed -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-logo">
       <strong><span class="red">MEGA</span>777</strong>
