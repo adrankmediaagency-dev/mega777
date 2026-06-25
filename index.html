@@ -6,6 +6,7 @@
   <title>MEGA777 | India's Best Gaming Application</title>
   <meta name="description" content="MEGA777 - India's Best Gaming Application. Play & Win Daily!">
   <meta name="theme-color" content="#cc2222">
+  <link rel="icon" type="image/png" href="profile.png">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -31,37 +32,37 @@
       50% { transform: translateY(-5px); }
     }
 
+    /* PAGE OFFSET FOR STICKY */
     .page-content { margin-top: 52px; }
 
-    /* HERO — background image fills full section */
+    /* HERO */
     .hero {
+      background: #0a0a0a;
       position: relative; overflow: hidden;
       min-height: 520px;
     }
-    /* Full-cover background image */
     .hero-bg {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      z-index: 0;
+      position: absolute; top: 0; right: 0;
+      height: 100%; width: 50%;
+      object-fit: cover; object-position: top center;
+      opacity: 0.95;
     }
-    /* Dark overlay so text is readable over the image */
     .hero-overlay {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 1;
-      background: linear-gradient(
-        to right,
-        rgba(5,0,0,0.92) 0%,
-        rgba(5,0,0,0.80) 40%,
-        rgba(5,0,0,0.50) 65%,
-        rgba(5,0,0,0.20) 100%
-      );
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to right, #0a0a0a 42%, rgba(10,10,10,0.65) 62%, rgba(10,10,10,0.0) 100%);
     }
     .hero-content {
       position: relative; z-index: 2;
       padding: 3rem 2rem 3rem 3rem;
       max-width: 55%;
     }
+    .logo-row {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem;
+    }
+    .logo-row img { height: 56px; width: auto; object-fit: contain; }
+    .logo-text { line-height: 1.3; }
+    .logo-text strong { color: #fff; font-size: 17px; display: block; }
+    .logo-text span { color: #aaa; font-size: 13px; }
     .tagline {
       font-size: 12px; letter-spacing: 2px; color: #cc2222;
       font-weight: 600; text-transform: uppercase; margin-bottom: 0.6rem;
@@ -119,7 +120,9 @@
 
     /* SECTIONS */
     section { padding: 4rem 2rem; }
-    .section-title { text-align: center; margin-bottom: 2.5rem; }
+    .section-title {
+      text-align: center; margin-bottom: 2.5rem;
+    }
     .section-title h2 {
       font-size: 36px; font-weight: 700;
       background: linear-gradient(to right, #ff4444, #ffcc00);
@@ -234,8 +237,10 @@
       background: #080808; border-top: 1px solid #1a1a1a;
       padding: 2rem; text-align: center;
     }
-    .footer-brand { font-size: 20px; font-weight: 700; margin-bottom: 1rem; }
-    .footer-brand .red { color: #e22; }
+    .footer-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 1rem; }
+    .footer-logo img { height: 40px; }
+    .footer-logo strong { font-size: 20px; font-weight: 700; }
+    .footer-logo strong .red { color: #e22; }
     .footer-contact {
       display: flex; align-items: center; justify-content: center; gap: 16px;
       flex-wrap: wrap; margin-bottom: 1rem;
@@ -270,10 +275,9 @@
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
+      .hero-bg { width: 100%; opacity: 0.2; }
+      .hero-overlay { background: rgba(10,10,10,0.85); }
       .hero-content { max-width: 100%; padding: 2rem 1.5rem; }
-      .hero-overlay {
-        background: rgba(5,0,0,0.88);
-      }
       .brand { font-size: 40px; }
       .rate-card.highlight { grid-column: span 1; }
       .contact-strip { gap: 16px; }
@@ -292,11 +296,18 @@
 
 <div class="page-content">
 
-  <!-- HERO — pic.png now fills the entire background -->
+  <!-- HERO -->
   <div class="hero">
     <img class="hero-bg" src="pic.png" alt="">
     <div class="hero-overlay"></div>
     <div class="hero-content">
+      <div class="logo-row">
+        <img src="profile.png" alt="Mega777 Logo">
+        <div class="logo-text">
+          <strong>MEGA777</strong>
+          <span>India's #1 Gaming App</span>
+        </div>
+      </div>
       <div class="tagline">India's Premier Gaming Platform</div>
       <div class="brand"><span class="red">MEGA</span>777</div>
       <div class="hindi">दुनिया का नंबर 1 गेमिंग एप्लीकेशन</div>
@@ -485,7 +496,10 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-brand"><span class="red">MEGA</span>777</div>
+    <div class="footer-logo">
+      <img src="profile.png" alt="Mega777">
+      <strong><span class="red">MEGA</span>777</strong>
+    </div>
     <div class="footer-contact">
       <a href="tel:+919876543210" class="footer-link"><i class="fas fa-phone-alt"></i> +91 98765 43210</a>
       <a href="https://wa.me/919876543210" target="_blank" class="footer-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
