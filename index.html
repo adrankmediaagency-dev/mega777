@@ -3,530 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MEGA777 – Phone Preview</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    /* ── OUTER PAGE ── */
-    body {
-      background: #1a1a2e;
-      background-image: radial-gradient(ellipse at 30% 20%, rgba(204,34,34,0.12) 0%, transparent 60%),
-                        radial-gradient(ellipse at 70% 80%, rgba(255,204,0,0.06) 0%, transparent 60%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 40px 20px 60px;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    .page-label {
-      color: #888;
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    /* ── PHONE SHELL ── */
-    .phone-shell {
-      width: 375px;
-      background: #0e0e0e;
-      border-radius: 44px;
-      border: 2px solid #2a2a2a;
-      box-shadow:
-        0 0 0 6px #111,
-        0 0 0 8px #222,
-        0 30px 80px rgba(0,0,0,0.7),
-        inset 0 1px 0 rgba(255,255,255,0.05);
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* notch */
-    .phone-notch {
-      position: absolute;
-      top: 0; left: 50%; transform: translateX(-50%);
-      width: 120px; height: 28px;
-      background: #0e0e0e;
-      border-radius: 0 0 20px 20px;
-      z-index: 100;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-    }
-    .notch-cam { width: 10px; height: 10px; background: #1a1a1a; border-radius: 50%; border: 1px solid #2a2a2a; }
-    .notch-speaker { width: 52px; height: 5px; background: #1c1c1c; border-radius: 4px; }
-
-    /* status bar */
-    .status-bar {
-      background: #0a0a0a;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 36px 20px 6px;
-      font-size: 11px; color: #ccc; font-weight: 600;
-    }
-    .status-right { display: flex; gap: 6px; align-items: center; }
-    .status-right i { font-size: 10px; }
-
-    /* scrollable phone content */
-    .phone-screen {
-      height: 780px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      background: #111;
-      scrollbar-width: none;
-    }
-    .phone-screen::-webkit-scrollbar { display: none; }
-
-    /* ── INNER APP ── */
-    .sticky-bar {
-      position: sticky; top: 0; z-index: 99;
-      background: #cc2222;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 10px 16px;
-    }
-    .sticky-bar i { font-size: 14px; color: #fff; }
-    .sticky-bar span { color: #fff; font-size: 13px; font-weight: 600; }
-    .sticky-bar .badge {
-      background: #fff; color: #cc2222; font-size: 10px; font-weight: 700;
-      padding: 2px 8px; border-radius: 20px;
-    }
-
-    /* HERO */
-    .hero {
-      background: #0a0a0a;
-      position: relative; overflow: hidden;
-      min-height: 360px;
-      display: flex; align-items: center;
-    }
-    .hero-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #0a0a0a 50%, rgba(10,10,10,0.4) 100%);
-    }
-    .hero-art {
-      position: absolute; right: -10px; top: 0; bottom: 0;
-      width: 55%;
-      display: flex; align-items: center; justify-content: flex-end;
-    }
-    .hero-art-img {
-      width: 100%; height: 100%; object-fit: cover; object-position: top center; opacity: 0.85;
-    }
-    /* fallback gradient art if pic.png missing */
-    .hero-art-fallback {
-      width: 100%; height: 100%;
-      background: linear-gradient(160deg, transparent 0%, rgba(204,34,34,0.15) 40%, rgba(255,204,0,0.08) 100%);
-      display: flex; align-items: center; justify-content: center;
-    }
-
-    .hero-content {
-      position: relative; z-index: 2;
-      padding: 28px 20px;
-      max-width: 55%;
-    }
-    .tagline {
-      font-size: 8px; letter-spacing: 1.5px; color: #cc2222;
-      font-weight: 700; text-transform: uppercase; margin-bottom: 6px;
-    }
-    .brand { font-size: 38px; font-weight: 800; line-height: 1; color: #fff; margin-bottom: 4px; }
-    .brand .red { color: #e22; }
-    .hindi { font-size: 11px; color: #ffcc00; font-weight: 600; margin-bottom: 6px; line-height: 1.4; }
-    .sub { font-size: 11px; color: #aaa; margin-bottom: 14px; line-height: 1.5; }
-    .sub strong { color: #fff; }
-
-    .hero-btns { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
-    .btn-dl {
-      background: #cc2222; color: #fff; border: none;
-      padding: 10px 14px; border-radius: 10px;
-      font-size: 12px; font-weight: 600; cursor: pointer;
-      display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
-    }
-    .btn-wa {
-      background: #128c3e; color: #fff; border: none;
-      padding: 9px 14px; border-radius: 10px;
-      font-size: 12px; font-weight: 600; cursor: pointer;
-      display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
-    }
-
-    .stats { display: flex; gap: 14px; flex-wrap: wrap; }
-    .stat-num { font-size: 15px; font-weight: 700; color: #e22; }
-    .stat-lbl { font-size: 9px; color: #666; }
-
-    /* CONTACT STRIP */
-    .contact-strip {
-      background: #0d0d0d;
-      border-top: 1px solid #1e1e1e; border-bottom: 1px solid #1e1e1e;
-      display: flex; align-items: center; justify-content: center;
-      gap: 12px; padding: 10px 12px; flex-wrap: wrap;
-    }
-    .contact-item {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 11px; color: #ccc; text-decoration: none;
-    }
-    .contact-item i { font-size: 12px; }
-    .contact-item.phone i { color: #cc2222; }
-    .contact-item.wa i { color: #25d366; }
-    .contact-item.time i { color: #ffcc00; }
-    .divider { width: 1px; height: 18px; background: #2a2a2a; }
-
-    /* SECTIONS */
-    section { padding: 28px 16px; }
-    .section-title { text-align: center; margin-bottom: 20px; }
-    .section-title h2 {
-      font-size: 22px; font-weight: 700; color: #fff;
-      background: linear-gradient(to right, #ff4444, #ffcc00);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      margin-bottom: 4px;
-    }
-    .section-title p { color: #777; font-size: 12px; }
-    .title-line {
-      width: 40px; height: 2px;
-      background: linear-gradient(to right, #cc2222, #ffcc00);
-      margin: 8px auto 0; border-radius: 2px;
-    }
-
-    /* RATES */
-    .rates-section { background: linear-gradient(135deg, #0d0d0d, #1a0505, #0d0d0d); }
-    .rates-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-    }
-    .rate-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px; padding: 14px 10px; text-align: center;
-    }
-    .rate-card .icon { font-size: 24px; margin-bottom: 6px; }
-    .rate-card h3 { font-size: 11px; font-weight: 600; margin-bottom: 6px; color: #ddd; }
-    .rate-arrow { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 12px; font-weight: 700; }
-    .rate-from { color: #e55; }
-    .rate-to { color: #4caf50; }
-    .rate-card.highlight {
-      border-color: #cc2222;
-      background: rgba(204,34,34,0.08);
-      grid-column: span 2;
-      padding: 16px;
-    }
-    .rate-card.highlight h3 { font-size: 14px; color: #ffcc00; }
-    .rate-card.highlight .rate-arrow { font-size: 16px; }
-    .highest-badge {
-      display: inline-block;
-      background: linear-gradient(to right, #ffcc00, #ff4444);
-      color: #000; font-size: 9px; font-weight: 700;
-      padding: 2px 10px; border-radius: 20px; margin-bottom: 8px;
-    }
-
-    /* HOW TO PLAY */
-    .play-section { background: linear-gradient(135deg, #111, #0a0a1a, #111); }
-    .steps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .step-card { text-align: center; padding: 14px 8px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); }
-    .step-num {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: #cc2222; color: #fff;
-      font-size: 14px; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 8px;
-    }
-    .step-icon { font-size: 22px; color: #cc2222; margin-bottom: 6px; }
-    .step-card h3 { font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #eee; }
-    .step-card p { font-size: 10px; color: #777; }
-
-    /* FEATURES */
-    .features-section { background: #0d0d0d; }
-    .features-grid { display: flex; flex-direction: column; gap: 10px; }
-    .feature-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 12px; padding: 14px;
-      display: flex; gap: 12px; align-items: flex-start;
-    }
-    .feature-card i { font-size: 22px; color: #cc2222; flex-shrink: 0; }
-    .feature-card h3 { font-size: 13px; font-weight: 600; margin-bottom: 2px; color: #eee; }
-    .feature-card p { font-size: 11px; color: #666; }
-
-    /* FAQ */
-    .faq-section { background: linear-gradient(135deg, #0d0d0d, #050510, #0d0d0d); }
-    .faq-list { display: flex; flex-direction: column; gap: 8px; }
-    .faq-item {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px; overflow: hidden;
-    }
-    .faq-btn {
-      width: 100%; background: none; border: none; color: #fff;
-      padding: 14px; display: flex; align-items: center; justify-content: space-between;
-      cursor: pointer; font-size: 13px; font-weight: 500; text-align: left;
-    }
-    .faq-btn i { font-size: 12px; color: #cc2222; transition: transform 0.3s; }
-    .faq-answer {
-      max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
-      padding: 0 14px; color: #999; font-size: 12px; line-height: 1.7;
-    }
-    .faq-answer.open { max-height: 200px; padding: 0 14px 12px; }
-    .faq-answer ol { padding-left: 1rem; margin-top: 6px; }
-    .faq-answer li { margin-bottom: 3px; }
-
-    /* FOOTER */
-    footer {
-      background: #080808; border-top: 1px solid #1a1a1a;
-      padding: 20px 16px; text-align: center;
-    }
-    .footer-logo { margin-bottom: 10px; }
-    .footer-logo strong { font-size: 18px; font-weight: 700; color: #fff; }
-    .footer-logo strong .red { color: #e22; }
-    .footer-contact { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
-    .footer-link { color: #888; text-decoration: none; font-size: 12px; display: inline-flex; align-items: center; gap: 5px; }
-    .footer-link i { font-size: 13px; }
-    .footer-bottom { color: #444; font-size: 10px; }
-    .footer-bottom span { color: #cc2222; font-weight: 600; }
-
-    /* FIXED BOTTOM BUTTON */
-    .fixed-dl {
-      position: sticky; bottom: 12px;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      background: linear-gradient(to right, #cc2222, #e55);
-      color: #fff; text-decoration: none;
-      padding: 13px 24px; border-radius: 50px;
-      font-size: 14px; font-weight: 700;
-      margin: 0 auto 0;
-      box-shadow: 0 4px 20px rgba(204,34,34,0.6);
-      animation: pulse 2s infinite;
-      width: calc(100% - 32px);
-      margin-left: 16px;
-      margin-bottom: 12px;
-    }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 4px 20px rgba(204,34,34,0.5); }
-      50% { box-shadow: 0 4px 30px rgba(204,34,34,0.9); }
-    }
-
-    /* ── CODE PANEL ── */
-    .code-section {
-      width: 100%; max-width: 900px;
-      margin-top: 40px;
-    }
-    .code-header {
-      display: flex; align-items: center; justify-content: space-between;
-      background: #1e1e2e; border-radius: 12px 12px 0 0;
-      padding: 12px 20px; border-bottom: 1px solid #2a2a3e;
-    }
-    .code-header span { color: #aaa; font-size: 13px; font-family: monospace; }
-    .copy-btn {
-      background: #cc2222; color: #fff; border: none;
-      padding: 6px 16px; border-radius: 8px;
-      font-size: 12px; font-weight: 600; cursor: pointer;
-      transition: background 0.2s;
-    }
-    .copy-btn:hover { background: #a81b1b; }
-    .copy-btn.copied { background: #128c3e; }
-    .code-box {
-      background: #12121f;
-      border-radius: 0 0 12px 12px;
-      padding: 20px;
-      max-height: 400px;
-      overflow-y: auto;
-      border: 1px solid #1e1e2e;
-      border-top: none;
-    }
-    .code-box pre {
-      color: #c9d1d9; font-family: 'Courier New', monospace;
-      font-size: 11px; line-height: 1.6;
-      white-space: pre-wrap; word-break: break-word;
-    }
-  </style>
-</head>
-<body>
-
-<p class="page-label">📱 Phone Preview</p>
-
-<!-- PHONE SHELL -->
-<div class="phone-shell">
-  <div class="phone-notch">
-    <div class="notch-cam"></div>
-    <div class="notch-speaker"></div>
-    <div class="notch-cam"></div>
-  </div>
-
-  <!-- STATUS BAR -->
-  <div class="status-bar">
-    <span>9:41</span>
-    <div class="status-right">
-      <i class="fas fa-signal"></i>
-      <i class="fas fa-wifi"></i>
-      <i class="fas fa-battery-three-quarters"></i>
-    </div>
-  </div>
-
-  <!-- SCROLLABLE SCREEN -->
-  <div class="phone-screen" id="phoneScreen">
-
-    <!-- STICKY TOP BAR -->
-    <a href="#" class="sticky-bar">
-      <i class="fas fa-download"></i>
-      <span>Download MEGA777 App</span>
-      <span class="badge">FREE</span>
-    </a>
-
-    <!-- HERO -->
-    <div class="hero">
-      <div class="hero-art">
-        <img class="hero-art-img" src="pic.png" alt="" onerror="this.style.display='none'">
-      </div>
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="tagline">India's Premier Gaming Platform</div>
-        <div class="brand"><span class="red">MEGA</span>777</div>
-        <div class="hindi">दुनिया का नंबर 1 गेमिंग एप्लीकेशन</div>
-        <p class="sub">Play up to <strong>Lacs Daily</strong> — Safe, Secure &amp; Lightning Fast</p>
-        <div class="hero-btns">
-          <a href="#" class="btn-dl"><i class="fas fa-download"></i> Download APK</a>
-          <a href="#" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
-        </div>
-        <div class="stats">
-          <div class="stat"><div class="stat-num">10L+</div><div class="stat-lbl">Active Players</div></div>
-          <div class="stat"><div class="stat-num">₹1Cr+</div><div class="stat-lbl">Daily Winnings</div></div>
-          <div class="stat"><div class="stat-num">24/7</div><div class="stat-lbl">Support</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CONTACT STRIP -->
-    <div class="contact-strip">
-      <a href="#" class="contact-item phone"><i class="fas fa-phone-alt"></i> +91 98765 43210</a>
-      <div class="divider"></div>
-      <a href="#" class="contact-item wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      <div class="divider"></div>
-      <span class="contact-item time"><i class="fas fa-clock"></i> 24/7 Support</span>
-    </div>
-
-    <!-- GAME RATES -->
-    <section class="rates-section">
-      <div class="section-title">
-        <h2>Game Rates</h2>
-        <p>Best winning rates in the market</p>
-        <div class="title-line"></div>
-      </div>
-      <div class="rates-grid">
-        <div class="rate-card"><div class="icon">🎯</div><h3>Single Digit</h3><div class="rate-arrow"><span class="rate-from">₹10</span> → <span class="rate-to">₹100</span></div></div>
-        <div class="rate-card"><div class="icon">🎲</div><h3>Jodi Digit</h3><div class="rate-arrow"><span class="rate-from">₹10</span> → <span class="rate-to">₹1,000</span></div></div>
-        <div class="rate-card"><div class="icon">🃏</div><h3>Single Pana</h3><div class="rate-arrow"><span class="rate-from">₹10</span> → <span class="rate-to">₹1,600</span></div></div>
-        <div class="rate-card"><div class="icon">🎴</div><h3>Double Pana</h3><div class="rate-arrow"><span class="rate-from">₹10</span> → <span class="rate-to">₹3,200</span></div></div>
-        <div class="rate-card"><div class="icon">🎰</div><h3>Triple Pana</h3><div class="rate-arrow"><span class="rate-from">₹10</span> → <span class="rate-to">₹9,000</span></div></div>
-        <div class="rate-card"><div class="icon">💎</div><h3>Half Sangam</h3><div class="rate-arrow"><span class="rate-from">₹10</span> → <span class="rate-to">₹15,000</span></div></div>
-        <div class="rate-card highlight">
-          <div class="highest-badge">⭐ HIGHEST PAYOUT</div>
-          <div class="icon">👑</div>
-          <h3>Full Sangam</h3>
-          <div class="rate-arrow"><span class="rate-from">₹10</span> → <span class="rate-to">₹1,00,000</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW TO PLAY -->
-    <section class="play-section">
-      <div class="section-title">
-        <h2>How To Play</h2>
-        <p>Get started in 4 simple steps</p>
-        <div class="title-line"></div>
-      </div>
-      <div class="steps-grid">
-        <div class="step-card"><div class="step-num">1</div><div class="step-icon"><i class="fas fa-download"></i></div><h3>Download App</h3><p>Get our APK from the official website</p></div>
-        <div class="step-card"><div class="step-num">2</div><div class="step-icon"><i class="fas fa-sign-in-alt"></i></div><h3>Register</h3><p>Create your account easily</p></div>
-        <div class="step-card"><div class="step-num">3</div><div class="step-icon"><i class="fas fa-user-lock"></i></div><h3>Login</h3><p>Enter your User ID &amp; Password</p></div>
-        <div class="step-card"><div class="step-num">4</div><div class="step-icon"><i class="fas fa-gamepad"></i></div><h3>Play &amp; Win</h3><p>Choose your game and start winning</p></div>
-      </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="features-section">
-      <div class="section-title">
-        <h2>Why MEGA777?</h2>
-        <p>Trusted by millions across India</p>
-        <div class="title-line"></div>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card"><i class="fas fa-trophy"></i><div><h3>Best Rates</h3><p>Highest winning rates in the market</p></div></div>
-        <div class="feature-card"><i class="fas fa-shield-alt"></i><div><h3>100% Safe</h3><p>Secure transactions guaranteed</p></div></div>
-        <div class="feature-card"><i class="fas fa-bolt"></i><div><h3>Fast Withdrawals</h3><p>Instant money transfers to your account</p></div></div>
-        <div class="feature-card"><i class="fas fa-headset"></i><div><h3>24/7 Support</h3><p>Always here to help you win</p></div></div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq-section">
-      <div class="section-title">
-        <h2>FAQ</h2>
-        <p>Frequently asked questions</p>
-        <div class="title-line"></div>
-      </div>
-      <div class="faq-list">
-        <div class="faq-item">
-          <button class="faq-btn" onclick="toggleFaq(this)">How to add points? <i class="fas fa-chevron-down"></i></button>
-          <div class="faq-answer"><ol><li>Go to your wallet section</li><li>Click on "Add Points"</li><li>Select your payment method</li><li>Enter the amount and complete payment</li></ol></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-btn" onclick="toggleFaq(this)">How to withdraw points? <i class="fas fa-chevron-down"></i></button>
-          <div class="faq-answer"><ol><li>Go to your profile section</li><li>Add your payment method (Bank/UPI/Wallet)</li><li>Go to withdrawal section</li><li>Enter amount and confirm M-PIN</li></ol></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-btn" onclick="toggleFaq(this)">How to contact support? <i class="fas fa-chevron-down"></i></button>
-          <div class="faq-answer"><p>Call or WhatsApp us at <strong style="color:#fff;">+91 98765 43210</strong> — available 24/7.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-      <div class="footer-logo">
-        <strong><span class="red">MEGA</span>777</strong>
-      </div>
-      <div class="footer-contact">
-        <a href="#" class="footer-link"><i class="fas fa-phone-alt"></i> +91 98765 43210</a>
-        <a href="#" class="footer-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      </div>
-      <p class="footer-bottom">Copyright 2025 <span>MEGA777</span> | All Rights Reserved</p>
-    </footer>
-
-    <!-- FIXED BOTTOM DOWNLOAD -->
-    <a href="#" class="fixed-dl">
-      <i class="fas fa-download"></i> Download MEGA777 APP
-    </a>
-
-  </div><!-- /phone-screen -->
-</div><!-- /phone-shell -->
-
-<!-- ── CODE PANEL ── -->
-<div class="code-section">
-  <div class="code-header">
-    <span>📄 mega777_mobile.html</span>
-    <button class="copy-btn" id="copyBtn" onclick="copyCode()">Copy Code</button>
-  </div>
-  <div class="code-box">
-    <pre id="codeContent"></pre>
-  </div>
-</div>
-
-<script>
-function toggleFaq(btn) {
-  const answer = btn.nextElementSibling;
-  const icon = btn.querySelector('i');
-  const isOpen = answer.classList.contains('open');
-  document.querySelectorAll('.faq-answer').forEach(el => el.classList.remove('open'));
-  document.querySelectorAll('.faq-btn i').forEach(el => el.style.transform = '');
-  if (!isOpen) {
-    answer.classList.add('open');
-    icon.style.transform = 'rotate(180deg)';
-  }
-}
-
-// Populate code panel with the full source of the mobile page only
-const mobilePageSource = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MEGA777 | India's Best Gaming Application</title>
   <meta name="description" content="MEGA777 - India's Best Gaming Application. Play & Win Daily!">
   <meta name="theme-color" content="#cc2222">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #111; font-family: 'Segoe UI', sans-serif; color: #fff; overflow-x: hidden; }
@@ -537,135 +18,227 @@ const mobilePageSource = `<!DOCTYPE html>
       display: flex; align-items: center; justify-content: center; gap: 10px;
       padding: 12px 1rem;
       box-shadow: 0 2px 12px rgba(200,20,20,0.5);
-      text-decoration: none;
     }
-    .sticky-bar i { font-size: 18px; color: #fff; }
+    .sticky-bar i { font-size: 18px; color: #fff; animation: bounce 1.4s infinite; }
     .sticky-bar span { color: #fff; font-size: 15px; font-weight: 600; }
     .sticky-bar .badge {
       background: #fff; color: #cc2222; font-size: 11px; font-weight: 700;
       padding: 2px 10px; border-radius: 20px; margin-left: 4px;
     }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
 
     .page-content { margin-top: 52px; }
 
     .hero {
-      background: #0a0a0a; position: relative; overflow: hidden; min-height: 420px;
-      display: flex; align-items: center;
+      background: #0a0a0a;
+      position: relative; overflow: hidden;
+      min-height: 520px;
     }
     .hero-bg {
       position: absolute; top: 0; right: 0;
-      height: 100%; width: 55%;
-      object-fit: cover; object-position: top center; opacity: 0.9;
+      height: 100%; width: 50%;
+      object-fit: cover; object-position: top center;
+      opacity: 0.95;
     }
     .hero-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, #0a0a0a 42%, rgba(10,10,10,0.55) 65%, transparent 100%);
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to right, #0a0a0a 42%, rgba(10,10,10,0.65) 62%, rgba(10,10,10,0.0) 100%);
     }
     .hero-content {
       position: relative; z-index: 2;
-      padding: 2rem 1.2rem;
+      padding: 3rem 2rem 3rem 3rem;
       max-width: 55%;
     }
-    .tagline { font-size: 9px; letter-spacing: 2px; color: #cc2222; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
-    .brand { font-size: 38px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+    .tagline {
+      font-size: 12px; letter-spacing: 2px; color: #cc2222;
+      font-weight: 600; text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+    .brand { font-size: 58px; font-weight: 800; line-height: 1; margin-bottom: 0.4rem; }
     .brand .red { color: #e22; }
-    .hindi { font-size: 12px; color: #ffcc00; font-weight: 600; margin-bottom: 6px; }
-    .sub { font-size: 12px; color: #aaa; margin-bottom: 14px; line-height: 1.5; }
-    .hero-btns { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .hindi { font-size: 18px; color: #ffcc00; font-weight: 600; margin-bottom: 0.5rem; }
+    .sub { font-size: 15px; color: #aaa; margin-bottom: 1.5rem; line-height: 1.6; }
+    .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 2rem; }
     .btn-dl {
       background: #cc2222; color: #fff; border: none;
-      padding: 11px 16px; border-radius: 10px;
-      font-size: 13px; font-weight: 600; cursor: pointer;
+      padding: 13px 24px; border-radius: 12px;
+      font-size: 15px; font-weight: 600; cursor: pointer;
       display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+      transition: background 0.2s;
     }
+    .btn-dl:hover { background: #a81b1b; }
     .btn-wa {
       background: #128c3e; color: #fff; border: none;
-      padding: 10px 16px; border-radius: 10px;
-      font-size: 13px; font-weight: 600; cursor: pointer;
+      padding: 13px 20px; border-radius: 12px;
+      font-size: 15px; font-weight: 600; cursor: pointer;
       display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+      transition: background 0.2s;
     }
-    .stats { display: flex; gap: 16px; flex-wrap: wrap; }
-    .stat-num { font-size: 16px; font-weight: 700; color: #e22; }
-    .stat-lbl { font-size: 10px; color: #666; }
+    .btn-wa:hover { background: #0e6b2f; }
+    .btn-call {
+      background: transparent; color: #fff; border: 2px solid #555;
+      padding: 13px 20px; border-radius: 12px;
+      font-size: 15px; font-weight: 600; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .btn-call:hover { border-color: #fff; }
+    .stats { display: flex; gap: 24px; flex-wrap: wrap; }
+    .stat-num { font-size: 22px; font-weight: 700; color: #e22; }
+    .stat-lbl { font-size: 12px; color: #777; }
 
     .contact-strip {
       background: #0d0d0d; border-top: 1px solid #1e1e1e; border-bottom: 1px solid #1e1e1e;
       display: flex; align-items: center; justify-content: center;
-      gap: 12px; padding: 12px 1rem; flex-wrap: wrap;
+      gap: 32px; padding: 14px 2rem; flex-wrap: wrap;
     }
-    .contact-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #ccc; text-decoration: none; }
-    .contact-item i { font-size: 14px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 14px; color: #ccc; text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-item:hover { color: #fff; }
+    .contact-item i { font-size: 18px; }
     .contact-item.phone i { color: #cc2222; }
     .contact-item.wa i { color: #25d366; }
     .contact-item.time i { color: #ffcc00; }
-    .divider { width: 1px; height: 20px; background: #2a2a2a; }
+    .divider { width: 1px; height: 24px; background: #2a2a2a; }
 
-    section { padding: 2rem 1rem; }
-    .section-title { text-align: center; margin-bottom: 1.5rem; }
+    section { padding: 4rem 2rem; }
+    .section-title { text-align: center; margin-bottom: 2.5rem; }
     .section-title h2 {
-      font-size: 26px; font-weight: 700;
+      font-size: 36px; font-weight: 700;
       background: linear-gradient(to right, #ff4444, #ffcc00);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      margin-bottom: 4px;
+      margin-bottom: 0.5rem;
     }
-    .section-title p { color: #777; font-size: 13px; }
-    .title-line { width: 40px; height: 2px; background: linear-gradient(to right, #cc2222, #ffcc00); margin: 8px auto 0; border-radius: 2px; }
+    .section-title p { color: #888; font-size: 15px; }
+    .title-line {
+      width: 60px; height: 3px;
+      background: linear-gradient(to right, #cc2222, #ffcc00);
+      margin: 12px auto 0; border-radius: 2px;
+    }
 
     .rates-section { background: linear-gradient(135deg, #0d0d0d, #1a0505, #0d0d0d); }
-    .rates-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .rate-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px 10px; text-align: center; }
-    .rate-card .icon { font-size: 28px; margin-bottom: 8px; }
-    .rate-card h3 { font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #ddd; }
-    .rate-arrow { display: flex; align-items: center; justify-content: center; gap: 5px; font-size: 13px; font-weight: 700; }
+    .rates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px; max-width: 1100px; margin: 0 auto;
+    }
+    .rate-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; padding: 1.5rem; text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .rate-card:hover { transform: translateY(-6px); border-color: rgba(204,34,34,0.4); }
+    .rate-card .icon { font-size: 36px; margin-bottom: 12px; }
+    .rate-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 10px; color: #ddd; }
+    .rate-arrow { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 16px; font-weight: 700; }
     .rate-from { color: #e55; }
     .rate-to { color: #4caf50; }
-    .rate-card.highlight { border-color: #cc2222; background: rgba(204,34,34,0.08); grid-column: span 2; padding: 16px; }
-    .rate-card.highlight h3 { font-size: 16px; color: #ffcc00; }
-    .rate-card.highlight .rate-arrow { font-size: 18px; }
-    .highest-badge { display: inline-block; background: linear-gradient(to right, #ffcc00, #ff4444); color: #000; font-size: 10px; font-weight: 700; padding: 2px 10px; border-radius: 20px; margin-bottom: 8px; }
+    .rate-card.highlight {
+      border-color: #cc2222;
+      background: rgba(204,34,34,0.08);
+      grid-column: span 2;
+    }
+    .rate-card.highlight h3 { font-size: 20px; color: #ffcc00; }
+    .rate-card.highlight .rate-arrow { font-size: 22px; }
+    .highest-badge {
+      display: inline-block;
+      background: linear-gradient(to right, #ffcc00, #ff4444);
+      color: #000; font-size: 11px; font-weight: 700;
+      padding: 3px 12px; border-radius: 20px; margin-bottom: 12px;
+    }
 
     .play-section { background: linear-gradient(135deg, #111, #0a0a1a, #111); }
-    .steps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .step-card { text-align: center; padding: 16px 10px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); }
-    .step-num { width: 36px; height: 36px; border-radius: 50%; background: #cc2222; color: #fff; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
-    .step-icon { font-size: 26px; color: #cc2222; margin-bottom: 8px; }
-    .step-card h3 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-    .step-card p { font-size: 11px; color: #777; }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px; max-width: 900px; margin: 0 auto;
+    }
+    .step-card { text-align: center; padding: 1.5rem 1rem; }
+    .step-num {
+      width: 50px; height: 50px; border-radius: 50%;
+      background: #cc2222; color: #fff;
+      font-size: 20px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .step-icon { font-size: 36px; color: #cc2222; margin-bottom: 12px; }
+    .step-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+    .step-card p { font-size: 13px; color: #888; }
 
     .features-section { background: #0d0d0d; }
-    .features-grid { display: flex; flex-direction: column; gap: 10px; }
-    .feature-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 14px; display: flex; gap: 12px; align-items: flex-start; }
-    .feature-card i { font-size: 24px; color: #cc2222; flex-shrink: 0; }
-    .feature-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
-    .feature-card p { font-size: 12px; color: #666; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px; max-width: 1000px; margin: 0 auto;
+    }
+    .feature-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px; padding: 1.5rem;
+      display: flex; gap: 14px; align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(204,34,34,0.35); }
+    .feature-card i { font-size: 28px; color: #cc2222; flex-shrink: 0; }
+    .feature-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .feature-card p { font-size: 13px; color: #777; }
 
     .faq-section { background: linear-gradient(135deg, #0d0d0d, #050510, #0d0d0d); }
-    .faq-list { display: flex; flex-direction: column; gap: 8px; }
-    .faq-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; }
-    .faq-btn { width: 100%; background: none; border: none; color: #fff; padding: 14px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-size: 13px; font-weight: 500; text-align: left; }
-    .faq-btn i { font-size: 12px; color: #cc2222; transition: transform 0.3s; }
-    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 14px; color: #999; font-size: 13px; line-height: 1.7; }
-    .faq-answer.open { max-height: 200px; padding: 0 14px 12px; }
-    .faq-answer ol { padding-left: 1rem; margin-top: 6px; }
-    .faq-answer li { margin-bottom: 3px; }
+    .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; overflow: hidden;
+    }
+    .faq-btn {
+      width: 100%; background: none; border: none; color: #fff;
+      padding: 1.1rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; font-size: 15px; font-weight: 500; text-align: left;
+    }
+    .faq-btn:hover { background: rgba(255,255,255,0.04); }
+    .faq-btn i { font-size: 14px; color: #cc2222; transition: transform 0.3s; }
+    .faq-answer {
+      max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+      padding: 0 1.5rem; color: #999; font-size: 14px; line-height: 1.7;
+    }
+    .faq-answer.open { max-height: 300px; padding: 0 1.5rem 1.2rem; }
+    .faq-answer ol, .faq-answer ul { padding-left: 1.2rem; margin-top: 8px; }
+    .faq-answer li { margin-bottom: 4px; }
 
-    footer { background: #080808; border-top: 1px solid #1a1a1a; padding: 20px 16px; text-align: center; }
-    .footer-logo { margin-bottom: 10px; }
+    footer {
+      background: #080808; border-top: 1px solid #1a1a1a;
+      padding: 2rem; text-align: center;
+    }
+    .footer-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 1rem; }
     .footer-logo strong { font-size: 20px; font-weight: 700; }
     .footer-logo strong .red { color: #e22; }
-    .footer-contact { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
-    .footer-link { color: #888; text-decoration: none; font-size: 12px; display: inline-flex; align-items: center; gap: 5px; }
-    .footer-bottom { color: #444; font-size: 11px; }
+    .footer-contact {
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+      flex-wrap: wrap; margin-bottom: 1rem;
+    }
+    .footer-link {
+      color: #888; text-decoration: none; font-size: 13px;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: color 0.2s;
+    }
+    .footer-link:hover { color: #fff; }
+    .footer-link i { font-size: 15px; }
+    .footer-bottom { color: #555; font-size: 12px; }
     .footer-bottom span { color: #cc2222; font-weight: 600; }
 
     .fixed-dl {
-      position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+      position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
       z-index: 998;
       background: linear-gradient(to right, #cc2222, #e55);
       color: #fff; text-decoration: none;
-      padding: 13px 28px; border-radius: 50px;
-      font-size: 15px; font-weight: 700;
-      display: flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 50px;
+      font-size: 16px; font-weight: 700;
+      display: flex; align-items: center; gap: 10px;
       box-shadow: 0 4px 20px rgba(204,34,34,0.6);
       animation: pulse 2s infinite;
       white-space: nowrap;
@@ -674,10 +247,32 @@ const mobilePageSource = `<!DOCTYPE html>
       0%, 100% { box-shadow: 0 4px 20px rgba(204,34,34,0.6); }
       50% { box-shadow: 0 4px 35px rgba(204,34,34,0.9); }
     }
+
+    /* ===== MOBILE FIX ===== */
+    @media (max-width: 768px) {
+      .hero-bg {
+        width: 55%;           /* keep image on the right side */
+        opacity: 0.9;         /* was 0.2 — restored full visibility */
+        object-position: top center;
+      }
+      .hero-overlay {
+        /* was rgba(10,10,10,0.85) which buried the image */
+        background: linear-gradient(to right, #0a0a0a 38%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.0) 100%);
+      }
+      .hero-content {
+        max-width: 60%;       /* was 100% — text left, image right */
+        padding: 2rem 1.2rem;
+      }
+      .brand { font-size: 34px; }
+      .rate-card.highlight { grid-column: span 1; }
+      .contact-strip { gap: 16px; }
+      .fixed-dl { padding: 12px 24px; font-size: 14px; }
+    }
   </style>
 </head>
 <body>
 
+<!-- STICKY TOP BAR -->
 <a href="mega-v6.apk" class="sticky-bar">
   <i class="fas fa-download"></i>
   <span>Download MEGA777 App</span>
@@ -686,6 +281,7 @@ const mobilePageSource = `<!DOCTYPE html>
 
 <div class="page-content">
 
+  <!-- HERO -->
   <div class="hero">
     <img class="hero-bg" src="pic.png" alt="">
     <div class="hero-overlay"></div>
@@ -696,7 +292,8 @@ const mobilePageSource = `<!DOCTYPE html>
       <p class="sub">Play up to <strong style="color:#fff;">Lacs Daily</strong> — Safe, Secure &amp; Lightning Fast</p>
       <div class="hero-btns">
         <a href="mega-v6.apk" class="btn-dl"><i class="fas fa-download"></i> Download APK</a>
-        <a href="https://wa.me/919876543210" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+        <a href="https://wa.me/919876543210" target="_blank" class="btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="tel:+919876543210" class="btn-call"><i class="fas fa-phone-alt"></i> Call Now</a>
       </div>
       <div class="stats">
         <div class="stat"><div class="stat-num">10L+</div><div class="stat-lbl">Active Players</div></div>
@@ -706,16 +303,28 @@ const mobilePageSource = `<!DOCTYPE html>
     </div>
   </div>
 
+  <!-- CONTACT STRIP -->
   <div class="contact-strip">
-    <a href="tel:+919876543210" class="contact-item phone"><i class="fas fa-phone-alt"></i> +91 98765 43210</a>
+    <a href="tel:+919876543210" class="contact-item phone">
+      <i class="fas fa-phone-alt"></i> +91 98765 43210
+    </a>
     <div class="divider"></div>
-    <a href="https://wa.me/919876543210" target="_blank" class="contact-item wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a href="https://wa.me/919876543210" target="_blank" class="contact-item wa">
+      <i class="fab fa-whatsapp"></i> +91 98765 43210
+    </a>
     <div class="divider"></div>
-    <span class="contact-item time"><i class="fas fa-clock"></i> 24/7 Support</span>
+    <span class="contact-item time">
+      <i class="fas fa-clock"></i> 24/7 Support Available
+    </span>
   </div>
 
+  <!-- GAME RATES -->
   <section class="rates-section">
-    <div class="section-title"><h2>Game Rates</h2><p>Best winning rates in the market</p><div class="title-line"></div></div>
+    <div class="section-title">
+      <h2>Game Rates</h2>
+      <p>Best winning rates in the market</p>
+      <div class="title-line"></div>
+    </div>
     <div class="rates-grid">
       <div class="rate-card"><div class="icon">🎯</div><h3>Single Digit</h3><div class="rate-arrow"><span class="rate-from">₹10</span> → <span class="rate-to">₹100</span></div></div>
       <div class="rate-card"><div class="icon">🎲</div><h3>Jodi Digit</h3><div class="rate-arrow"><span class="rate-from">₹10</span> → <span class="rate-to">₹1,000</span></div></div>
@@ -725,24 +334,35 @@ const mobilePageSource = `<!DOCTYPE html>
       <div class="rate-card"><div class="icon">💎</div><h3>Half Sangam</h3><div class="rate-arrow"><span class="rate-from">₹10</span> → <span class="rate-to">₹15,000</span></div></div>
       <div class="rate-card highlight">
         <div class="highest-badge">⭐ HIGHEST PAYOUT</div>
-        <div class="icon">👑</div><h3>Full Sangam</h3>
+        <div class="icon">👑</div>
+        <h3>Full Sangam</h3>
         <div class="rate-arrow"><span class="rate-from">₹10</span> → <span class="rate-to">₹1,00,000</span></div>
       </div>
     </div>
   </section>
 
+  <!-- HOW TO PLAY -->
   <section class="play-section">
-    <div class="section-title"><h2>How To Play</h2><p>Get started in 4 simple steps</p><div class="title-line"></div></div>
+    <div class="section-title">
+      <h2>How To Play</h2>
+      <p>Get started in 4 simple steps</p>
+      <div class="title-line"></div>
+    </div>
     <div class="steps-grid">
       <div class="step-card"><div class="step-num">1</div><div class="step-icon"><i class="fas fa-download"></i></div><h3>Download App</h3><p>Get our APK from the official website</p></div>
       <div class="step-card"><div class="step-num">2</div><div class="step-icon"><i class="fas fa-sign-in-alt"></i></div><h3>Register</h3><p>Create your new account easily</p></div>
-      <div class="step-card"><div class="step-num">3</div><div class="step-icon"><i class="fas fa-user-lock"></i></div><h3>Login</h3><p>Enter your User ID &amp; Password</p></div>
-      <div class="step-card"><div class="step-num">4</div><div class="step-icon"><i class="fas fa-gamepad"></i></div><h3>Play &amp; Win</h3><p>Choose your game and start winning</p></div>
+      <div class="step-card"><div class="step-num">3</div><div class="step-icon"><i class="fas fa-user-lock"></i></div><h3>Enter Credentials</h3><p>Login with your User ID &amp; Password</p></div>
+      <div class="step-card"><div class="step-num">4</div><div class="step-icon"><i class="fas fa-gamepad"></i></div><h3>Select &amp; Play</h3><p>Choose your game and start winning</p></div>
     </div>
   </section>
 
+  <!-- FEATURES -->
   <section class="features-section">
-    <div class="section-title"><h2>Why MEGA777?</h2><p>Trusted by millions across India</p><div class="title-line"></div></div>
+    <div class="section-title">
+      <h2>Why MEGA777?</h2>
+      <p>Trusted by millions across India</p>
+      <div class="title-line"></div>
+    </div>
     <div class="features-grid">
       <div class="feature-card"><i class="fas fa-trophy"></i><div><h3>Best Rates</h3><p>Highest winning rates in the market</p></div></div>
       <div class="feature-card"><i class="fas fa-shield-alt"></i><div><h3>100% Safe</h3><p>Secure transactions guaranteed</p></div></div>
@@ -751,8 +371,13 @@ const mobilePageSource = `<!DOCTYPE html>
     </div>
   </section>
 
+  <!-- FAQ -->
   <section class="faq-section">
-    <div class="section-title"><h2>FAQ</h2><p>Frequently asked questions</p><div class="title-line"></div></div>
+    <div class="section-title">
+      <h2>FAQ</h2>
+      <p>Frequently asked questions</p>
+      <div class="title-line"></div>
+    </div>
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-btn" onclick="toggleFaq(this)">How to add points? <i class="fas fa-chevron-down"></i></button>
@@ -760,7 +385,7 @@ const mobilePageSource = `<!DOCTYPE html>
       </div>
       <div class="faq-item">
         <button class="faq-btn" onclick="toggleFaq(this)">How to withdraw points? <i class="fas fa-chevron-down"></i></button>
-        <div class="faq-answer"><ol><li>Go to your profile section</li><li>Add your payment method</li><li>Go to withdrawal section</li><li>Enter amount and confirm M-PIN</li></ol></div>
+        <div class="faq-answer"><ol><li>Go to your profile section</li><li>Add your payment method (Bank/UPI/Wallet)</li><li>Go to withdrawal section</li><li>Enter amount, select method and confirm M-PIN</li></ol></div>
       </div>
       <div class="faq-item">
         <button class="faq-btn" onclick="toggleFaq(this)">How to contact support? <i class="fas fa-chevron-down"></i></button>
@@ -769,17 +394,21 @@ const mobilePageSource = `<!DOCTYPE html>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
-    <div class="footer-logo"><strong><span class="red">MEGA</span>777</strong></div>
+    <div class="footer-logo">
+      <strong><span class="red">MEGA</span>777</strong>
+    </div>
     <div class="footer-contact">
       <a href="tel:+919876543210" class="footer-link"><i class="fas fa-phone-alt"></i> +91 98765 43210</a>
       <a href="https://wa.me/919876543210" target="_blank" class="footer-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
     </div>
-    <p class="footer-bottom">Copyright 2025 <span>MEGA777</span> | All Rights Reserved</p>
+    <p class="footer-bottom">Copyright 2025 <span>MEGA777</span> | All Rights Reserved | <a href="#" style="color:#888;">Privacy Policy</a></p>
   </footer>
 
 </div>
 
+<!-- FIXED BOTTOM DOWNLOAD -->
 <a href="mega-v6.apk" class="fixed-dl">
   <i class="fas fa-download"></i> Download MEGA777 APP
 </a>
@@ -796,25 +425,6 @@ function toggleFaq(btn) {
     icon.style.transform = 'rotate(180deg)';
   }
 }
-<\/script>
-</body>
-</html>`;
-
-document.getElementById('codeContent').textContent = mobilePageSource;
-
-function copyCode() {
-  const code = document.getElementById('codeContent').textContent;
-  navigator.clipboard.writeText(code).then(() => {
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = '✓ Copied!';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = 'Copy Code';
-      btn.classList.remove('copied');
-    }, 2000);
-  });
-}
 </script>
-
 </body>
 </html>
