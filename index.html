@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +7,18 @@
   <meta name="description" content="MEGA777 - India's Best Gaming Application. Play & Win Daily!">
   <meta name="theme-color" content="#cc2222">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #111; font-family: 'Segoe UI', sans-serif; color: #fff; overflow-x: hidden; }
 
+    /* STICKY TOP BAR */
     .sticky-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 999;
       background: #cc2222;
       display: flex; align-items: center; justify-content: center; gap: 10px;
       padding: 12px 1rem;
       box-shadow: 0 2px 12px rgba(200,20,20,0.5);
+      text-decoration: none;
     }
     .sticky-bar i { font-size: 18px; color: #fff; animation: bounce 1.4s infinite; }
     .sticky-bar span { color: #fff; font-size: 15px; font-weight: 600; }
@@ -32,6 +33,7 @@
 
     .page-content { margin-top: 52px; }
 
+    /* HERO */
     .hero {
       background: #0a0a0a;
       position: relative; overflow: hidden;
@@ -89,6 +91,7 @@
     .stat-num { font-size: 22px; font-weight: 700; color: #e22; }
     .stat-lbl { font-size: 12px; color: #777; }
 
+    /* CONTACT STRIP */
     .contact-strip {
       background: #0d0d0d; border-top: 1px solid #1e1e1e; border-bottom: 1px solid #1e1e1e;
       display: flex; align-items: center; justify-content: center;
@@ -106,6 +109,7 @@
     .contact-item.time i { color: #ffcc00; }
     .divider { width: 1px; height: 24px; background: #2a2a2a; }
 
+    /* SECTIONS */
     section { padding: 4rem 2rem; }
     .section-title { text-align: center; margin-bottom: 2.5rem; }
     .section-title h2 {
@@ -121,6 +125,7 @@
       margin: 12px auto 0; border-radius: 2px;
     }
 
+    /* GAME RATES */
     .rates-section { background: linear-gradient(135deg, #0d0d0d, #1a0505, #0d0d0d); }
     .rates-grid {
       display: grid;
@@ -153,6 +158,7 @@
       padding: 3px 12px; border-radius: 20px; margin-bottom: 12px;
     }
 
+    /* HOW TO PLAY */
     .play-section { background: linear-gradient(135deg, #111, #0a0a1a, #111); }
     .steps-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -170,6 +176,7 @@
     .step-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
     .step-card p { font-size: 13px; color: #888; }
 
+    /* FEATURES */
     .features-section { background: #0d0d0d; }
     .features-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -187,6 +194,7 @@
     .feature-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
     .feature-card p { font-size: 13px; color: #777; }
 
+    /* FAQ */
     .faq-section { background: linear-gradient(135deg, #0d0d0d, #050510, #0d0d0d); }
     .faq-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
     .faq-item {
@@ -210,6 +218,7 @@
     .faq-answer ol, .faq-answer ul { padding-left: 1.2rem; margin-top: 8px; }
     .faq-answer li { margin-bottom: 4px; }
 
+    /* FOOTER */
     footer {
       background: #080808; border-top: 1px solid #1a1a1a;
       padding: 2rem; text-align: center;
@@ -231,6 +240,7 @@
     .footer-bottom { color: #555; font-size: 12px; }
     .footer-bottom span { color: #cc2222; font-weight: 600; }
 
+    /* FIXED BOTTOM BUTTON */
     .fixed-dl {
       position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
       z-index: 998;
@@ -248,25 +258,24 @@
       50% { box-shadow: 0 4px 35px rgba(204,34,34,0.9); }
     }
 
-    /* ===== MOBILE FIX ===== */
+    /* MOBILE */
     @media (max-width: 768px) {
-      .hero-bg {
-        width: 55%;           /* keep image on the right side */
-        opacity: 0.9;         /* was 0.2 — restored full visibility */
-        object-position: top center;
-      }
+      .hero { min-height: auto; }
+      .hero-bg { width: 55%; opacity: 0.9; object-position: top center; }
       .hero-overlay {
-        /* was rgba(10,10,10,0.85) which buried the image */
         background: linear-gradient(to right, #0a0a0a 38%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.0) 100%);
       }
-      .hero-content {
-        max-width: 60%;       /* was 100% — text left, image right */
-        padding: 2rem 1.2rem;
-      }
+      .hero-content { max-width: 60%; padding: 2rem 1.2rem; }
       .brand { font-size: 34px; }
+      .hindi { font-size: 14px; }
+      .sub { font-size: 13px; }
+      .hero-btns { flex-direction: column; }
+      .btn-dl, .btn-wa, .btn-call { justify-content: center; }
       .rate-card.highlight { grid-column: span 1; }
-      .contact-strip { gap: 16px; }
+      .contact-strip { gap: 16px; flex-direction: column; }
+      .divider { display: none; }
       .fixed-dl { padding: 12px 24px; font-size: 14px; }
+      section { padding: 2.5rem 1.2rem; }
     }
   </style>
 </head>
@@ -283,7 +292,7 @@
 
   <!-- HERO -->
   <div class="hero">
-    <img class="hero-bg" src="pic.png" alt="">
+    <img class="hero-bg" src="pic.png" alt="MEGA777 Gaming">
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="tagline">India's Premier Gaming Platform</div>
